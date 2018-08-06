@@ -14,16 +14,27 @@ board = Arduino('COM5')
 iterator = util.Iterator(board)
 iterator.start()
 
-# Read Analog Pin A0
-measureVoltage = board.get_pin('a:0:i')
-
-# Wait for 1 second for script to get the reading
-time.sleep(1.0)
-
-# Convert the measurement into degrees
-convertToDegree = (measureVoltage.read() * 5000.0 - 500.0) / 10.0
-
-print("Temperature in Celsius:")
-print(convertToDegree)
-
-board.exit()
+    
+userInput = input("Read temperature (y/n): ")
+    
+if userInput == "y":
+    
+    print("Please wait, reading temperature...")
+    print("")
+    # Read Analog Pin A0
+    measureVoltage = board.get_pin('a:0:i')
+        
+    # Wait for 1 second for script to get the reading
+    time.sleep(1.0)
+        
+    # Convert the measurement into degrees
+    convertToDegree = (measureVoltage.read() * 5000.0 - 500.0) / 10.0
+        
+    print("Temperature in Celsius:")
+    print(convertToDegree)
+        
+    board.exit()
+        
+elif userInput == "n":
+    print("Shutting down..")
+    board.exit()
